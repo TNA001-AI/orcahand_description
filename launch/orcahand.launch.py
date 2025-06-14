@@ -35,7 +35,7 @@ def generate_launch_description():
     orcahand_rviz_config_path = PathJoinSubstitution([
         FindPackageShare('orcahand_description'),
         'rviz',
-        'config.rviz'
+        'ros2.rviz'
     ])
 
     return LaunchDescription([
@@ -59,6 +59,13 @@ def generate_launch_description():
             name='joint_state_publisher',
             output='screen',
         ),
+
+        # Node(
+        #     package='joint_state_publisher', 
+        #     executable='joint_state_publisher',
+        #     name='joint_state_publisher',
+        #     output='screen',
+        # ),
 
         Node(
             package='rviz2',
