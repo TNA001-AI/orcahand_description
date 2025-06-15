@@ -52,20 +52,24 @@ def generate_launch_description():
                 ])
             }],
         ),
-
         Node(
-            package='joint_state_publisher',
-            executable='joint_state_publisher',
-            name='joint_state_publisher',
+            package='glove',
+            executable='read_and_send_zmq',
+            name='read_and_send_zmq',
             output='screen',
+            emulate_tty=True
         ),
-
-        # Node(
-        #     package='joint_state_publisher', 
-        #     executable='joint_state_publisher',
-        #     name='joint_state_publisher',
-        #     output='screen',
-        # ),
+        Node(
+            package='telekinesis',
+            executable='orca_ik',
+            name='orca_ik',
+            output='screen',
+            emulate_tty=True,
+            parameters=[{
+                "isLeft": False,
+                "show_gui": False
+            }]
+        ),
 
         Node(
             package='rviz2',
