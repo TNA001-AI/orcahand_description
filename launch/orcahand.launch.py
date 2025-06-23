@@ -37,10 +37,15 @@ def generate_launch_description():
         'rviz',
         'ros2.rviz'
     ])
+    # com_arg = DeclareLaunchArgument(
+    #     name="com_port", 
+    #     default_value="/dev/serial/by-id/usb-FTDI_USB__-__Serial_Converter_FTAA0B5W-if00-port0", 
+    #     description="Default COM port"
+    # )
 
     return LaunchDescription([
         urdf_file_arg,
-
+        # com_arg,
         Node(
             package='robot_state_publisher',
             executable='robot_state_publisher',
@@ -67,21 +72,29 @@ def generate_launch_description():
             emulate_tty=True,
             parameters=[{
                 "isLeft": False,
-                "show_gui": True
+                "show_gui": False,
             }]
         ),
+        # Node(
+        #     package='isaac_sim',
+        #     executable='joint_converter',
+        #     name='joint_converter',
+        #     output='screen',
+        #     emulate_tty=True
+        # ),
+
         Node(
-            package='isaac_sim',
-            executable='joint_converter',
-            name='joint_converter',
+            package='gello_state_publisher', 
+            executable='gello_publisher',        
+            name='gello_publisher',              
             output='screen',
-            emulate_tty=True
+            parameters=[{"com_port": "/dev/serial/by-id/usb-FTDI_USB__-__Serial_Converter_FTAA0B5W-if00-port0"}],
         ),
-        Node(
-            package='rviz2',
-            executable='rviz2',
-            name='rviz2',
-            output='screen',
-            arguments=['-d', orcahand_rviz_config_path],
-        ),
+        # Node(
+        #     package='rviz2',
+        #     executable='rviz2',
+        #     name='rviz2',
+        #     output='screen',
+        #     arguments=['-d', orcahand_rviz_config_path],
+        # ),
     ])
