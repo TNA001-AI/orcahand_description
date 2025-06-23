@@ -67,10 +67,16 @@ def generate_launch_description():
             emulate_tty=True,
             parameters=[{
                 "isLeft": False,
-                "show_gui": False
+                "show_gui": True
             }]
         ),
-
+        Node(
+            package='isaac_sim',
+            executable='joint_converter',
+            name='joint_converter',
+            output='screen',
+            emulate_tty=True
+        ),
         Node(
             package='rviz2',
             executable='rviz2',
